@@ -76,8 +76,12 @@ class Response
         // @loggoer
         $this->logger->info($this->original, '响应结果');
         
+        // 解析json数据
         if($this->original) {
-            $this->result = json_decode($this->original, true);
+            $pos = strpos($this->header['Content-Type'], 'application/json');
+            if($pos === 0) {
+                $this->result = json_decode($this->original, true);
+            }
         }
     }
     
